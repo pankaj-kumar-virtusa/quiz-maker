@@ -1,0 +1,21 @@
+<h1>Results</h1>
+
+<div *ngFor="let res of resultList">
+    <app-quiz-question [resultMode]="true"  [question]="res"></app-quiz-question>
+</div>
+
+
+    <div class="row">
+    <div class="col-sm-8 offset-2">
+        <div class="text-center mt-4" [ngStyle]="{'background-color': scoreBgColor}">
+        You scored {{ score }} out of 5.
+        </div>
+
+        <div class="d-grid mt-4">
+        <button routerLink="/" class="btn btn-secondary" type="button">
+            Create a new quiz
+        </button>
+        </div>
+    </div>
+    </div>
+

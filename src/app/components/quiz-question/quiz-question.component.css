@@ -1,0 +1,9 @@
+.btn-cls {
+    color: green;
+    border: solid 1px green;
+    cursor: pointer;
+}
+
+.btn-success {
+    color: #fff !important;
+}

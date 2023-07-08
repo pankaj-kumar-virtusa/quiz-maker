@@ -1,0 +1,34 @@
+<h1> Create Quiz</h1>
+<form  #createQuizForm="ngForm" (ngSubmit)="getQuestionList(createQuizForm)">
+    <div class="row">
+        <div class="col-sm-4">
+            <select id="categorySelect" name="categorySelect" class="form-control" ngModel required>
+                <option value="">Select category</option>
+                <option *ngFor="let category of categoryList;" [value]="category.id">{{category.name}}</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <select id="difficultySelect" name="difficultySelect" class="form-control" ngModel required>
+                <option value="">Select difficulty</option>
+                <option *ngFor="let difficulty of difficultyList;" [value]="difficulty">{{difficulty}}</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <button  class="btn btn-primary" id="createBtn" [disabled]="!createQuizForm.valid">Create</button>
+        </div> 
+    </div>
+</form>
+
+<div *ngFor="let q of questionList">
+    <app-quiz-question (answerSelected)="enableSubmit()"  [question]="q"></app-quiz-question>
+  </div>
+
+  <div class="row mt-4" *ngIf="showSubmit">
+    <div class="col-7 offset-3">
+      <div class="d-grid">
+        <button class="btn btn-secondary" (click)="onSubmitQuiz()" type="button">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
