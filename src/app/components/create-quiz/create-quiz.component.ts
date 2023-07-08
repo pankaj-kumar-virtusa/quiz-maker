@@ -25,7 +25,10 @@ export class CreateQuizComponent  implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.categoryListSubscription = this.quizMakerService.getCategoryList().subscribe(
-        response => { this.categoryList = response}
+        { 
+          next: response => { this.categoryList = response},
+         error: err => { console.log(err)}
+        }
       );
   }
 
@@ -33,10 +36,12 @@ export class CreateQuizComponent  implements OnInit, OnDestroy{
     let category: number = form.value.categorySelect;
     let difficultyLevel: string = form.value.difficultySelect;
 
-      this.questionListSubscription = this.quizMakerService.getQuestionList(this.questionCount, category, difficultyLevel, this.type).subscribe((res: Question[]) => {
-        this.questionList = res;
-        console.log(res);
-      });
+      this.questionListSubscription = this.quizMakerService.getQuestionList(this.questionCount, category, difficultyLevel, this.type).subscribe(
+        { 
+          next: res => { this.questionList = res},
+          error: err => { console.log(err)}
+        }
+      );
   }
 
   enableSubmit(): void{

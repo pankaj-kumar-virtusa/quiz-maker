@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Answer, Question } from 'src/app/models/question.model';
 import { QuizMakerService } from 'src/app/services/quiz-maker.service';
 
@@ -7,15 +9,16 @@ import { QuizMakerService } from 'src/app/services/quiz-maker.service';
   templateUrl: './quiz-result.component.html',
   styleUrls: ['./quiz-result.component.css']
 })
-export class QuizResultComponent implements OnInit {
+export class QuizResultComponent implements OnInit, OnDestroy {
   resultList: Question[] = [];
   score: number = 0;
   scoreBgColor: string = '';
+  substription : Subscription = new Subscription();
 
-  constructor(private quizMakerService: QuizMakerService){}
+  constructor(private quizMakerService: QuizMakerService, private router: Router){}
 
   ngOnInit(): void {
-    this.quizMakerService.resultList$.subscribe((result: Question[]) => {
+    this.substription = this.quizMakerService.resultList$.subscribe((result: Question[]) => {
       this.resultList = result;
       this.setScore();
       this.scoreBgColor = this.score < 2 ? 'red' :
@@ -31,7 +34,15 @@ export class QuizResultComponent implements OnInit {
           this.score++;
         }
       });
-   });   
+   });
+  }
+
+  ngOnDestroy(): void {
+    this.substription.unsubscribe();
+  }
+
+  navigateToCreate(): void {
+    this.router.navigate(['/', 'createquiz'])
   }
 
 }

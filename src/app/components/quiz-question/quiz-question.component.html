@@ -1,16 +1,14 @@
-<ng-container >
-    <div>{{ question.question | escapeHtml}}</div>
-    <div class="mb-2 ma-2">
-    <button appBtnHover [resultMode]="resultMode" *ngFor="let ans of question.answers" class="btn mx-2 mt-1"
-        [ngClass]="{
-            'btn-success': (ans.selected && !resultMode) || (resultMode && ans.isCorrect),
-            'btn-danger': ans.selected && resultMode && !ans.isCorrect,
-            'btn-cls': (!ans.selected && !resultMode) || 
-                        (!ans.selected && !ans.isCorrect && resultMode)
-        }"
-        (click)="onOptionSelect(ans.description)"
-    >
-        {{ ans.description | escapeHtml }}
-    </button>
-    </div>
-</ng-container>   
+<div>{{ question.question | escapeHtml}}</div>
+<div class="mb-2 mt-2">
+<button appBtnHover [resultMode]="resultMode" *ngFor="let ans of question.answers" class="btn mx-2"
+    [ngClass]="{
+        'btn-success': (ans.selected && !resultMode) || (resultMode && ans.isCorrect),
+        'btn-danger': ans.selected && resultMode && !ans.isCorrect,
+        'btn-cls': (!ans.selected && !resultMode) || 
+                    (!ans.selected && !ans.isCorrect && resultMode)
+    }"
+    (click)="onOptionSelect(ans.description)"
+>
+    {{ ans.description | escapeHtml }}
+</button>
+</div>   

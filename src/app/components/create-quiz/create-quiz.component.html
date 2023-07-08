@@ -1,4 +1,4 @@
-<h1> Create Quiz</h1>
+<h1 class="text-center"> Create Quiz</h1>
 <form  #createQuizForm="ngForm" (ngSubmit)="getQuestionList(createQuizForm)">
     <div class="row">
         <div class="col-sm-4">
@@ -19,9 +19,13 @@
     </div>
 </form>
 
-<div *ngFor="let q of questionList">
-    <app-quiz-question (answerSelected)="enableSubmit()"  [question]="q"></app-quiz-question>
-  </div>
+  <div class="container mt-4">
+    <div class="mx-4" *ngFor="let q of questionList">
+      <app-quiz-question (answerSelected)="enableSubmit()"  [question]="q"></app-quiz-question>
+    </div>
+  </div>  
+   
+
 
   <div class="row mt-4" *ngIf="showSubmit">
     <div class="col-7 offset-3">
